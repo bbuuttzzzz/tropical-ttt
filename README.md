@@ -4,6 +4,7 @@ Garry's Mod 13 gamemode
 By Bad King Urgrain
 http://ttt.badking.net/
 
+This is the version made for Tropical group
 
 Description
 ===========
