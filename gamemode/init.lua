@@ -1,3 +1,8 @@
+MAP_TABLE_FILENAME = "maptable_terrortown.txt"
+
+-- Tropical Core --
+include("tropical-core/init.lua")
+
 ---- Trouble in Terrorist Town
 
 AddCSLuaFile("cl_init.lua")
@@ -711,23 +716,21 @@ function CheckForMapSwitch()
 
    local time_left = math.max(0, (GetConVar("ttt_time_limit_minutes"):GetInt() * 60) - CurTime())
    local switchmap = false
-   local nextmap = string.upper(game.GetMapNext())
 
    if rounds_left <= 0 then
-      LANG.Msg("limit_round", {mapname = nextmap})
+      LANG.Msg("limit_round")
       switchmap = true
    elseif time_left <= 0 then
-      LANG.Msg("limit_time", {mapname = nextmap})
+      LANG.Msg("limit_time")
       switchmap = true
    end
 
    if switchmap then
       timer.Stop("end2prep")
-      timer.Simple(15, game.LoadNextMap)
+      gamemode.Call("LoadNextMap")
    else
       LANG.Msg("limit_left", {num = rounds_left,
-                              time = math.ceil(time_left / 60),
-                              mapname = nextmap})
+                              time = math.ceil(time_left / 60)})
    end
 end
 

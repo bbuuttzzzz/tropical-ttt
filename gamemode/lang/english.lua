@@ -27,9 +27,9 @@ L.win_traitor      = "The Traitors have won!"
 L.win_innocent     = "The Traitors have been defeated!"
 L.win_showreport   = "Let's look at the round report for {num} seconds."
 
-L.limit_round      = "Round limit reached. {mapname} will load soon."
-L.limit_time       = "Time limit reached. {mapname} will load soon."
-L.limit_left       = "{num} round(s) or {time} minutes remaining before the map changes to {mapname}."
+L.limit_round      = "Round limit reached. voting will start soon."
+L.limit_time       = "Time limit reached. voting will start soon."
+L.limit_left       = "{num} round(s) or {time} minutes remaining before the map changes."
 
 --- Credit awards
 L.credit_det_all   = "Detectives, you have been awarded {num} equipment credit(s) for your performance."

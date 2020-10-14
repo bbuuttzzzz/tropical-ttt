@@ -1,3 +1,6 @@
+--tropical core
+include("tropical-core/cl_init.lua")
+
 include("shared.lua")
 
 -- Define GM12 fonts for compatibility
