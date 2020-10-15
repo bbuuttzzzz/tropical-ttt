@@ -302,8 +302,8 @@ function plymeta:InitialSpawn()
 
    -- Change some gmod defaults
    self:SetCanZoom(false)
-   self:SetJumpPower(160)
-   self:SetCrouchedWalkSpeed(0.3)
+   self:SetJumpPower(185)
+   self:SetCrouchedWalkSpeed(0.45)
    self:SetRunSpeed(220)
    self:SetWalkSpeed(220)
    self:SetMaxSpeed(220)

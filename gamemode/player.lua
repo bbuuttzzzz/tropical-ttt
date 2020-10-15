@@ -809,6 +809,11 @@ local fallsounds = {
 function GM:OnPlayerHitGround(ply, in_water, on_floater, speed)
    if in_water or speed < 450 or not IsValid(ply) then return end
 
+   -- if we hit the ground with appreciable speed, apply anti-bhop protection
+   if speed > 64 then
+       ply.LandSlow = true
+   end
+
    -- Everything over a threshold hurts you, rising exponentially with speed
    local damage = math.pow(0.05 * (speed - 420), 1.75)
 
