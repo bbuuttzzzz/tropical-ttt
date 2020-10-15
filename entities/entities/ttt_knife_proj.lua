@@ -47,26 +47,9 @@ function ENT:HitPlayer(other, tr)
 
    local range_dmg = math.max(self.Damage, self.StartPos:Distance(self:GetPos()) / 3)
 
-   if other:Health() < range_dmg + 10 then
-      self:KillPlayer(other, tr)
-   elseif SERVER then
-      local dmg = DamageInfo()
-      dmg:SetDamage(range_dmg)
-      dmg:SetAttacker(self:GetOwner())
-      dmg:SetInflictor(self)
-      dmg:SetDamageForce(self:EyeAngles():Forward())
-      dmg:SetDamagePosition(self:GetPos())
-      dmg:SetDamageType(DMG_SLASH)
+   -- kill whoever it hits
+   self:KillPlayer(other, tr)
 
-      local ang = Angle(-28,0,0) + tr.Normal:Angle()
-      ang:RotateAroundAxis(ang:Right(), -90)
-      other:DispatchTraceAttack(dmg, self:GetPos() + ang:Forward() * 3, other:GetPos())
-
-      if not self.Weaponised then
-         self:BecomeWeaponDelayed()
-      end
-   end
-   
    -- As a thrown knife, after we hit a target we can never hit one again.
    -- If we are picked up and re-thrown, a new knife_proj entity is created.
    -- To make sure we can never deal damage twice, make HitPlayer do nothing.

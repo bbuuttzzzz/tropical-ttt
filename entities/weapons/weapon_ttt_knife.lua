@@ -95,23 +95,8 @@ function SWEP:PrimaryAttack()
 
    if SERVER and tr.Hit and tr.HitNonWorld and IsValid(hitEnt) then
       if hitEnt:IsPlayer() then
-         -- knife damage is never karma'd, so don't need to take that into
-         -- account we do want to avoid rounding error strangeness caused by
-         -- other damage scaling, causing a death when we don't expect one, so
-         -- when the target's health is close to kill-point we just kill
-         if hitEnt:Health() < (self.Primary.Damage + 10) then
-            self:StabKill(tr, spos, sdest)
-         else
-            local dmg = DamageInfo()
-            dmg:SetDamage(self.Primary.Damage)
-            dmg:SetAttacker(self:GetOwner())
-            dmg:SetInflictor(self.Weapon or self)
-            dmg:SetDamageForce(self:GetOwner():GetAimVector() * 5)
-            dmg:SetDamagePosition(self:GetOwner():GetPos())
-            dmg:SetDamageType(DMG_SLASH)
-
-            hitEnt:DispatchTraceAttack(dmg, spos + (self:GetOwner():GetAimVector() * 3), sdest)
-         end
+         -- always stabkill with ohk
+         self:StabKill(tr, spos, sdest)
       end
    end
 
@@ -276,8 +261,7 @@ if CLIENT then
    function SWEP:DrawHUD()
       local tr = self:GetOwner():GetEyeTrace(MASK_SHOT)
 
-      if tr.HitNonWorld and IsValid(tr.Entity) and tr.Entity:IsPlayer()
-         and tr.Entity:Health() < (self.Primary.Damage + 10) then
+      if tr.HitNonWorld and IsValid(tr.Entity) and tr.Entity:IsPlayer() then
 
          local x = ScrW() / 2.0
          local y = ScrH() / 2.0
@@ -298,5 +282,3 @@ if CLIENT then
       return self.BaseClass.DrawHUD(self)
    end
 end
-
-
