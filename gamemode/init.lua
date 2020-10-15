@@ -727,7 +727,7 @@ function CheckForMapSwitch()
 
    if switchmap then
       timer.Stop("end2prep")
-      gamemode.Call("LoadNextMap")
+      timer.Simple(10, function() GAMEMODE:TropicalLoadNextMap() end)
    else
       LANG.Msg("limit_left", {num = rounds_left,
                               time = math.ceil(time_left / 60)})
