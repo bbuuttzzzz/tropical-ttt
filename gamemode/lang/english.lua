@@ -407,7 +407,7 @@ L.knife_name      = "Knife"
 L.knife_thrown    = "Thrown knife"
 
 L.knife_desc      = [[
-Kills wounded targets instantly and
+Kills targets instantly and
 silently, but only has a single use.
 
 Can be thrown using alternate fire.]]
