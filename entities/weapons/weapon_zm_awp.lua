@@ -3,7 +3,7 @@ AddCSLuaFile()
 SWEP.HoldType              = "ar2"
 
 if CLIENT then
-   SWEP.PrintName          = "Scout"
+   SWEP.PrintName          = "AWP"
    SWEP.Slot               = 2
 
    SWEP.ViewModelFlip      = false
@@ -16,19 +16,18 @@ end
 SWEP.Base                  = "weapon_tttbase"
 
 SWEP.Kind                  = WEAPON_HEAVY
-SWEP.WeaponID              = AMMO_RIFLE
 
-SWEP.Primary.Delay         = 1.5
-SWEP.Primary.Recoil        = 7
+SWEP.Primary.Delay         = 2
+SWEP.Primary.Recoil        = 12
 SWEP.Primary.Automatic     = true
 SWEP.Primary.Ammo          = "357"
-SWEP.Primary.Damage        = 55
+SWEP.Primary.Damage        = 80
 SWEP.Primary.Cone          = 0.005
-SWEP.Primary.ClipSize      = 10
+SWEP.Primary.ClipSize      = 4
 SWEP.Primary.ClipMax       = 20 -- keep mirrored to ammo
-SWEP.Primary.DefaultClip   = 10
-SWEP.Primary.Sound         = Sound("Weapon_Scout.Single")
-SWEP.Primary.SoundLevel    = 85
+SWEP.Primary.DefaultClip   = 4
+SWEP.Primary.Sound         = Sound("Weapon_AWP.Single")
+SWEP.Primary.SoundLevel    = 90
 
 SWEP.Secondary.Sound       = Sound("Default.Zoom")
 
@@ -39,8 +38,8 @@ SWEP.Spawnable             = true
 SWEP.AmmoEnt               = "item_ammo_357_ttt"
 
 SWEP.UseHands              = true
-SWEP.ViewModel             = Model("models/weapons/cstrike/c_snip_scout.mdl")
-SWEP.WorldModel            = Model("models/weapons/w_snip_scout.mdl")
+SWEP.ViewModel             = Model("models/weapons/cstrike/c_snip_awp.mdl")
+SWEP.WorldModel            = Model("models/weapons/w_snip_awp.mdl")
 
 SWEP.IronSightsPos         = Vector( 5, -15, -2 )
 SWEP.IronSightsAng         = Vector( 2.6, 1.37, 3.5 )
