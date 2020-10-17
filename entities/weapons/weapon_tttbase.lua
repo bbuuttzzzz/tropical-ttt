@@ -2,6 +2,25 @@
 
 AddCSLuaFile()
 
+-- SET WEAPON SPREAD
+-- to use: set SWEP.Primary.NumShots to a value in the BULLETPATTERN_ enum
+
+-- these bulletpatterns are in polar form (pitch/roll) in degrees!!!
+BULLETPATTERNS = {}
+
+-- THIS is the BULLETPATTERN_ enum,
+BULLETPATTERN_PUMP = -1
+BULLETPATTERNS[BULLETPATTERN_PUMP] = {
+    {0.3, 0}, {1, 355}, {0.7, 100}, {0.8, 150},
+    {0.24, 185}, {0.72, 245}, {0.25, 255}, {0.55, 295}
+}
+
+BULLETPATTERN_COMBAT = -2
+BULLETPATTERNS[BULLETPATTERN_COMBAT] = {
+    {0.65, 26}, {0.55,86}, {0.95, 130}, {0.82, 181},
+    {0.14, 220}, {0.75, 255}, {.48, 318}, {0.18, 348}
+}
+
 ---- TTT SPECIAL EQUIPMENT FIELDS
 
 -- This must be set to one of the WEAPON_ types in TTT weapons for weapon
@@ -287,11 +306,11 @@ local function Sparklies(attacker, tr, dmginfo)
 end
 
 function SWEP:ShootBullet( dmg, recoil, numbul, cone )
-
+   local owner = self:GetOwner()
    self:SendWeaponAnim(self.PrimaryAnim)
 
-   self:GetOwner():MuzzleFlash()
-   self:GetOwner():SetAnimation( PLAYER_ATTACK1 )
+  owner:MuzzleFlash()
+  owner:SetAnimation( PLAYER_ATTACK1 )
 
    local sights = self:GetIronsights()
 
@@ -299,10 +318,7 @@ function SWEP:ShootBullet( dmg, recoil, numbul, cone )
    cone   = cone   or 0.01
 
    local bullet = {}
-   bullet.Num    = numbul
-   bullet.Src    = self:GetOwner():GetShootPos()
-   bullet.Dir    = self:GetOwner():GetAimVector()
-   bullet.Spread = Vector( cone, cone, 0 )
+   bullet.Src    =owner:GetShootPos()
    bullet.Tracer = 4
    bullet.TracerName = self.Tracer or "Tracer"
    bullet.Force  = 10
@@ -311,10 +327,33 @@ function SWEP:ShootBullet( dmg, recoil, numbul, cone )
       bullet.Callback = Sparklies
    end
 
-   self:GetOwner():FireBullets( bullet )
-
+   if numbul < 0 then
+       print(cone)
+      local baseAngle =owner:EyeAngles()
+      local tempAngle = Angle(0, 0, 0)
+      bullet.Num = 1
+      bullet.Spread = 0
+      for _, rotationPair in pairs (BULLETPATTERNS[numbul]) do
+         tempAngle:Set(baseAngle)
+         tempAngle:RotateAroundAxis(
+            tempAngle:Forward(),
+            rotationPair[2]
+         )
+         tempAngle:RotateAroundAxis(
+            tempAngle:Up(),
+            rotationPair[1] * math.deg(cone)
+         )
+         bullet.Dir = tempAngle:Forward()
+         owner:FireBullets( bullet )
+      end
+   else
+      bullet.Num    = numbul
+      bullet.Spread = Vector( cone, cone, 0 )
+      bullet.Dir    =owner:GetAimVector()
+     owner:FireBullets( bullet )
+   end
    -- Owner can die after firebullets
-   if (not IsValid(self:GetOwner())) or (not self:GetOwner():Alive()) or self:GetOwner():IsNPC() then return end
+   if (not IsValid(self:GetOwner())) or (not owner:Alive()) or owner:IsNPC() then return end
 
    if ((game.SinglePlayer() and SERVER) or
        ((not game.SinglePlayer()) and CLIENT and IsFirstTimePredicted())) then
@@ -322,9 +361,9 @@ function SWEP:ShootBullet( dmg, recoil, numbul, cone )
       -- reduce recoil if ironsighting
       recoil = sights and (recoil * 0.6) or recoil
 
-      local eyeang = self:GetOwner():EyeAngles()
+      local eyeang =owner:EyeAngles()
       eyeang.pitch = eyeang.pitch - recoil
-      self:GetOwner():SetEyeAngles( eyeang )
+     owner:SetEyeAngles( eyeang )
    end
 end
 
