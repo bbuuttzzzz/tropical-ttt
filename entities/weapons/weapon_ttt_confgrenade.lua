@@ -21,6 +21,7 @@ SWEP.Kind               = WEAPON_NADE
 
 SWEP.Spawnable          = true
 SWEP.AutoSpawnable      = true
+SWEP.IsGrenade          = true
 
 SWEP.UseHands           = true
 SWEP.ViewModel          = "models/weapons/cstrike/c_eq_fraggrenade.mdl"
