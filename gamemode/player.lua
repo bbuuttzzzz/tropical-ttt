@@ -1005,9 +1005,6 @@ function GM:PlayerTakeDamage(ent, infl, att, amount, dmginfo)
       -- player falling on player, or player hurt by prop?
       if not dmginfo:IsDamageType(DMG_PHYSGUN) then
 
-         -- this is prop-based physics damage
-         dmginfo:ScaleDamage(0.25)
-
          -- if the prop is held, no damage
          if IsValid(infl) and IsValid(infl:GetOwner()) and infl:GetOwner():IsPlayer() then
             dmginfo:ScaleDamage(0)
