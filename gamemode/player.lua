@@ -854,6 +854,7 @@ function GM:OnPlayerHitGround(ply, in_water, on_floater, speed)
          ground:TakeDamageInfo(dmg)
          if damage > 15 and ground:Health() > 0 then
             ground:GiveTStatus("knockdown", damage * 0.075 )
+            ground:GiveTStatus("stop", damage * 0.075 )
          end
       end
 
@@ -877,6 +878,7 @@ function GM:OnPlayerHitGround(ply, in_water, on_floater, speed)
       end
       if damage > 20 and ply:Health() > 0 then
          ply:GiveTStatus("knockdown", damage * 0.05 )
+         ply:GiveTStatus("stop", damage * 0.05 )
       end
    end
 end
