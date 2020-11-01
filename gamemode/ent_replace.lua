@@ -276,6 +276,23 @@ function ents.TTT.GetSpawnableAmmo()
    return SpawnableAmmoClasses
 end
 
+local SpawnableGrenades = nil
+function ents.TTT.GetSpawnableGrenades()
+
+    if not SpawnableGrenades then
+        local tbl = {}
+        for k,v in pairs(weapons.GetList()) do
+           if v and v.AutoSpawnable and v.IsGrenade then
+              table.insert(tbl, v)
+           end
+        end
+
+        SpawnableGrenades = tbl
+    end
+
+    return SpawnableGrenades
+end
+
 local function PlaceWeapon(swep, pos, ang)
    local cls = swep and WEPS.GetClass(swep)
    if not cls then return end

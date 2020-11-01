@@ -25,6 +25,7 @@ SWEP.WorldModel         = "models/weapons/w_eq_smokegrenade.mdl"
 SWEP.Weight             = 5
 SWEP.AutoSpawnable      = true
 SWEP.Spawnable          = true
+SWEP.IsGrenade          = true
 -- really the only difference between grenade weapons: the model and the thrown
 -- ent.
 
