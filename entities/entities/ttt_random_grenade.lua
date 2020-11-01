@@ -8,8 +8,8 @@ function ENT:Initialize()
    local nades = ents.TTT.GetSpawnableGrenades()
 
    if nades then
-      local cls = nades[math.random(#nades)]
-      local ent = ents.Create(cls)
+      local w = nades[math.random(#nades)]
+      local ent = ents.Create(WEPS.GetClass(w))
       if IsValid(ent) then
          ent:SetPos(self:GetPos())
          ent:SetAngles(self:GetAngles())
