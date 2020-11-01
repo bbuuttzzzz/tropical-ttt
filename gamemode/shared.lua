@@ -3,8 +3,9 @@ GM.Author = "Bad King Urgrain"
 GM.Website = "ttt.badking.net"
 GM.Version = "shrug emoji"
 
-
 GM.Customized = false
+
+
 
 -- Round status consts
 ROUND_WAIT   = 1
