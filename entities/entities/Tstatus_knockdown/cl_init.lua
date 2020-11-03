@@ -1,7 +1,8 @@
 include("shared.lua")
 function ENT:Initialize()
-	hook.Add("CreateMove", self, self.CreateMove)
 
+	hook.Add("CreateMove", self, self.CreateMove)
+	
 	self:DrawShadow(false)
 	self:SetRenderBounds(Vector(-40, -40, -18), Vector(40, 40, 80))
 
@@ -13,30 +14,38 @@ function ENT:Initialize()
 	end
 	if owner:IsPlayer() then
 		owner.KnockedDown = self
+
+		owner.JumpHeight = owner:GetJumpPower()
+		owner:SetJumpPower(0)
+
 		owner:SetNoDraw(true)
 	end
-end
 
-function ENT:CreateMove(cmd)
-	if MySelf ~= self:GetOwner() then return end
-
-	local ang = cmd:GetViewAngles()
-	ang.yaw = self.CommandYaw or ang.yaw
-	cmd:SetViewAngles(ang)
-
-	cmd:ClearButtons(0)
-	cmd:ClearMovement()
 end
 
 function ENT:OnRemove()
 	local owner = self:GetOwner()
 	if owner:IsValid() then
 		owner.KnockedDown = nil
+
+		owner:SetJumpPower(owner.JumpHeight)
+		owner.JumpHeight = nil
+
 		owner:SetNoDraw(false)
 		if owner[self:GetClass()] == self then
 			owner[self:GetClass()] = nil
 		end
 	end
+end
+
+function ENT:CreateMove(cmd)
+
+	local ply = self:GetOwner()
+	if ply.KnockedDown then
+		cmd:ClearButtons()
+		cmd:ClearMovement()
+	end
+
 end
 
 function ENT:Think()

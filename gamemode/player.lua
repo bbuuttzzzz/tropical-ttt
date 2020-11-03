@@ -852,10 +852,6 @@ function GM:OnPlayerHitGround(ply, in_water, on_floater, speed)
          dmg:SetDamage(damage)
 
          ground:TakeDamageInfo(dmg)
-         if damage > 15 and ground:Health() > 0 then
-            ground:GiveTStatus("knockdown", damage * 0.075 )
-            ground:GiveTStatus("stop", damage * 0.075 )
-         end
       end
 
       -- our own falling damage is cushioned
@@ -875,10 +871,6 @@ function GM:OnPlayerHitGround(ply, in_water, on_floater, speed)
       -- play CS:S fall sound if we got somewhat significant damage
       if damage > 5 then
          sound.Play(table.Random(fallsounds), ply:GetShootPos(), 55 + math.Clamp(damage, 0, 50), 100)
-      end
-      if damage > 20 and ply:Health() > 0 then
-         ply:GiveTStatus("knockdown", damage * 0.05 )
-         ply:GiveTStatus("stop", damage * 0.05 )
       end
    end
 end
