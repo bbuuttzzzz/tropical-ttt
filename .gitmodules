@@ -1,3 +1,15 @@
 [submodule "gamemode/tropical-core"]
-	path = gamemode/tropical-core
+	path = gamemodes/terrortown/gamemode/tropical-core
 	url = https://github.com/kklluuttzz/tropical-core
+[submodule "addons/ulx-tropical"]
+	path = addons/ulx-tropical
+	url = git@github.com:kklluuttzz/ulx-tropical.git
+[submodule "addons/ulx"]
+	path = addons/ulx
+	url = git@github.com:TeamUlysses/ulx.git
+[submodule "addons/D3bot-tropical"]
+	path = addons/D3bot-tropical
+	url = https://github.com/orecros/D3bot
+[submodule "addons/ulib"]
+	path = addons/ulib
+	url = git@github.com:TeamUlysses/ulib.git
