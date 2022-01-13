@@ -2,7 +2,6 @@ AddCSLuaFile("shared.lua")
 AddCSLuaFile("cl_init.lua")
 include("shared.lua")
 
-
 function ENT:SetDie(fTime)
 	if fTime == 0 or not fTime then
 		self.DieTime = 0
@@ -18,10 +17,6 @@ function ENT:PlayerSet(pPlayer, bExists)
 	self:SetStartTime(CurTime())
 
 	pPlayer.KnockedDown = self
-
-	pPlayer.JumpHeight = pPlayer:GetJumpPower()
-	pPlayer:SetJumpPower(0)
-
 	pPlayer:DrawWorldModel(false)
 	pPlayer:DrawViewModel(false)
 
@@ -38,10 +33,6 @@ function ENT:OnRemove()
 	local parent = self:GetParent()
 	if parent:IsValid() then
 		parent.KnockedDown = nil
-
-		parent:SetJumpPower(parent.JumpHeight)
-		parent.JumpHeight = nil
-		
 
 		if parent:Alive() then
 			parent:DrawViewModel(true)

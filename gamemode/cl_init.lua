@@ -304,16 +304,6 @@ function GM:CalcView( ply, origin, angles, fov )
             view.angles = eyes.Ang
          end
       end
-      --firstperson knockdowns doesnt work in ent :(
-   elseif ply:Alive() and ply.KnockedDown and ply:GetRagdollEntity() then
-      local tgt = ply:GetRagdollEntity()
-      local eyes = tgt:LookupAttachment("eyes") or 0
-      
-	   eyes = tgt:GetAttachment(eyes)
-	   if eyes then
-	      view.origin = eyes.Pos + eyes.Ang:Forward() * -2.1
-	      view.angles = eyes.Ang
-      end
    end
 
 
