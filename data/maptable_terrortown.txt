@@ -1,1 +1,13 @@
-SRL={["ttt_forest_final"]={["tags"]={2}},["ttt_island_2013"]={["tags"]={2}},["de_dolls"]={["tags"]={2}},["ttt_biocube"]={["tags"]={3}},["ttt_waterworld"]={["tags"]={3}},["ttt_minecraft_b5"]={["tags"]={3}},["ttt_clue_se"]={["tags"]={4}},["ttt_richland"]={["tags"]={3}}}
+SRL={
+["ttt_forest_final"]={["tags"]={2}},
+["ttt_island_2013"]={["tags"]={2}},
+["de_dolls"]={["tags"]={2}},
+["ttt_biocube"]={["tags"]={3}},
+["ttt_waterworld"]={["tags"]={3}},
+["ttt_minecraft_b5"]={["tags"]={3}},
+["ttt_clue_se"]={["tags"]={4}},
+["ttt_richland"]={["tags"]={3}},
+["ttt_terrortrain_2019_brighter_v1"]={["tags"]={2}},
+["ttt_glacier"]={["tags"]={5}},
+["ttt_abyss"]={["tags"]={4}},
+["ttt_glockmansion"]={["tags"]={"3"}}

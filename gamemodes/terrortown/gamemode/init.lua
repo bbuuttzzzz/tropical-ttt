@@ -67,8 +67,8 @@ include("sh_movement.lua")
 
 -- Round times
 CreateConVar("ttt_roundtime_minutes", "10", FCVAR_NOTIFY)
-CreateConVar("ttt_preptime_seconds", "30", FCVAR_NOTIFY)
-CreateConVar("ttt_posttime_seconds", "30", FCVAR_NOTIFY)
+CreateConVar("ttt_preptime_seconds", "15", FCVAR_NOTIFY)
+CreateConVar("ttt_posttime_seconds", "15", FCVAR_NOTIFY)
 CreateConVar("ttt_firstpreptime", "60")
 
 -- Haste mode

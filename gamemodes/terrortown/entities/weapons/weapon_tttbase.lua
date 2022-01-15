@@ -328,7 +328,6 @@ function SWEP:ShootBullet( dmg, recoil, numbul, cone )
    end
 
    if numbul < 0 then
-       print(cone)
       local baseAngle =owner:EyeAngles()
       local tempAngle = Angle(0, 0, 0)
       bullet.Num = 1
