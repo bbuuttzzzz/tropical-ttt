@@ -1,0 +1,8 @@
+# A list of files & root folders to copy to (AND DELETE FROM!!!) GMDS when we need to
+# format: <path to internal folder/file> <subdirectory of GMDS to copy to>
+# IF YOU CHANGE THIS FILE ON WINDOWS AND SAVE IT WITH CRLF IT WONT FUCKING WOOORK!!!!
+addons/ulib garrysmod/addons
+addons/ulx garrysmod/addons
+addons/ulx-tropical garrysmod/addons
+data/maptable_terrortown.txt garrysmod/data
+gamemodes/terrortown garrysmod/gamemodes

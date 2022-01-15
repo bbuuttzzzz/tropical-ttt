@@ -7,9 +7,6 @@
 [submodule "addons/ulx"]
 	path = addons/ulx
 	url = git@github.com:TeamUlysses/ulx.git
-[submodule "addons/D3bot-tropical"]
-	path = addons/D3bot-tropical
-	url = https://github.com/orecros/D3bot
 [submodule "addons/ulib"]
 	path = addons/ulib
 	url = git@github.com:TeamUlysses/ulib.git
