@@ -21,19 +21,19 @@ SWEP.Primary.Delay         = 2
 SWEP.Primary.Recoil        = 12
 SWEP.Primary.Automatic     = true
 SWEP.Primary.Ammo          = "357"
-SWEP.Primary.Damage        = 80
+SWEP.Primary.Damage        = 100
 SWEP.Primary.Cone          = 0.005
-SWEP.Primary.ClipSize      = 4
+SWEP.Primary.ClipSize      = 10
 SWEP.Primary.ClipMax       = 20 -- keep mirrored to ammo
-SWEP.Primary.DefaultClip   = 4
+SWEP.Primary.DefaultClip   = 10
 SWEP.Primary.Sound         = Sound("Weapon_AWP.Single")
 SWEP.Primary.SoundLevel    = 90
+SWEP.Primary.AmmoPerShot   = 5
 
 SWEP.Secondary.Sound       = Sound("Default.Zoom")
 
 SWEP.HeadshotMultiplier    = 4
 
-SWEP.AutoSpawnable         = true
 SWEP.Spawnable             = true
 SWEP.AmmoEnt               = "item_ammo_357_ttt"
 

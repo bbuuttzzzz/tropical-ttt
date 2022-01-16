@@ -124,6 +124,7 @@ SWEP.Primary.DefaultClip    = -1
 SWEP.Primary.Automatic      = false
 SWEP.Primary.Ammo           = "none"
 SWEP.Primary.ClipMax        = -1
+SWEP.Primary.AmmoPerShot    = 1
 
 SWEP.Secondary.ClipSize     = 1
 SWEP.Secondary.DefaultClip  = 1
@@ -258,7 +259,7 @@ function SWEP:PrimaryAttack(worldsnd)
 
    self:ShootBullet( self.Primary.Damage, self.Primary.Recoil, self.Primary.NumShots, self:GetPrimaryCone() )
 
-   self:TakePrimaryAmmo( 1 )
+   self:TakePrimaryAmmo( self.Primary.AmmoPerShot )
 
    local owner = self:GetOwner()
    if not IsValid(owner) or owner:IsNPC() or (not owner.ViewPunch) then return end
@@ -279,7 +280,7 @@ end
 function SWEP:CanPrimaryAttack()
    if not IsValid(self:GetOwner()) then return end
 
-   if self:Clip1() <= 0 then
+   if self:Clip1() < self.Primary.AmmoPerShot then
       self:DryFire(self.SetNextPrimaryFire)
       return false
    end

@@ -245,7 +245,7 @@ end
 
 -- Cache this, every ttt_random_weapon uses it in its Init
 local SpawnableSWEPs = nil
--- function ents.TTT.GetSpawnableSWEPs()
+function ents.TTT.GetSpawnableSWEPs()
     if not SpawnableSWEPs then
         local tbl = {}
         for k,v in pairs(weapons.GetList()) do
@@ -615,12 +615,46 @@ local function ImportEntities(map)
     end
 
     if #collectedRares > 0 then
-
+        num = num + generateRares(collectedRares)
     end
 
     MsgN("Spawned " .. num .. " entities found in script.")
 
     return true
+end
+
+local function generateRares(tCollectedRares)
+    local iSpawned = 0
+
+    local iMaxRares = GetConVar("ttt_rareitem_spawns"):GetInt()
+
+    local tSelectedRares = {}
+
+    if iMaxRares > #tCollectedRares then
+        for i=1, #tCollectedRares do
+            table.insert(tSelectedIndexes, i)
+        end
+    else
+        -- as many times as we have rares to pick...
+        for i=1, iMaxRares do
+            -- choose a random thing we haven't picked yet
+            local iChoice = math.random(i, #tCollectedRares)
+            table.insert(tSelectedRares, tCollectedRares[iChoice])
+
+            -- move the chosen thing to the part of the table we can't pick again
+            local temp = tCollectedRares[iChoice]
+            tCollectedRares[iChoice] = tCollectedRares[i]
+            tCollectedRares[i] = temp
+        end
+    end
+
+    for _, v in ipairs(tSelectedRares) do
+        local cls = GAMEMODE:PickRare()
+        iSpawned = iSpawned + 1
+        CreateImportedEnt(cls, v.pos, v.ang, v.kv)
+    end
+
+    return iSpawned
 end
 
 
