@@ -1,5 +1,8 @@
 #!/bin/bash
 
+YLW='\033[1;33m'
+NC='\033[0m' # No Color
+
 #define the function display_help
 display_usage () {
     echo "Usage: gmds-link.sh [OPTION]... <PATH>"
@@ -69,10 +72,25 @@ if [[ $REVERT || $HARD ]]; then
             if [[ $FORCE ]]; then
                 rm -rf $1/$DESTINATION/`basename $SOURCE`
             else
-                rm -rfi $1/$DESTINATION/`basename $SOURCE`
+                echo -e "${YLW}rm -rf $1/$DESTINATION/`basename $SOURCE`${NC}"
             fi
         fi
     done <gmds-copy-folders
+
+    if [[ -z $FORCE ]]; then
+        read -p "Really remove these folders? Yy/n" -n 1 -r
+        echo ""
+        if [[ ! $REPLY =~ ^[Yy] ]]; then
+            echo "Cancelling..."
+            return 1 2>/dev/null || exit "1"
+        else
+            while read SOURCE DESTINATION ; do
+                if [[ ${SOURCE:0:1} != "#" ]]; then
+                    rm -rf $1/$DESTINATION/`basename $SOURCE`
+                fi
+            done <gmds-copy-folders
+        fi
+    fi
 fi
 
 # as long as we aren't reverting
