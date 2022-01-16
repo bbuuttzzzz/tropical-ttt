@@ -5,6 +5,6 @@
 addons/ulib garrysmod/addons
 addons/ulx garrysmod/addons
 addons/ulx-tropical garrysmod/addons
-addons/tropical-entity-placer garrysmod/addons
+addons/tropical-weapon-placer garrysmod/addons
 data/maptable_terrortown.txt garrysmod/data
 gamemodes/terrortown garrysmod/gamemodes
