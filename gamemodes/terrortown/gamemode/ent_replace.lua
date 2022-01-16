@@ -245,7 +245,7 @@ end
 
 -- Cache this, every ttt_random_weapon uses it in its Init
 local SpawnableSWEPs = nil
-function ents.TTT.GetSpawnableSWEPs()
+-- function ents.TTT.GetSpawnableSWEPs()
    if not SpawnableSWEPs then
       local tbl = {}
       for k,v in pairs(weapons.GetList()) do
@@ -258,6 +258,23 @@ function ents.TTT.GetSpawnableSWEPs()
    end
 
    return SpawnableSWEPs
+end
+
+-- Cache this, every ttt_random_weapon uses it in its Init
+local spawnableSmallSWEPs = nil
+function ents.TTT.GetSpawnableSmallSWEPs()
+   if not SpawnableSWEPs then
+      local tbl = {}
+      for k,v in pairs(weapons.GetList()) do
+         if v and v.AutoSpawnable and SWEP.Kind == WEAPON_PISTOL not WEPS.IsEquipment(v)) then
+            table.insert(tbl, v)
+         end
+      end
+
+      spawnableSmallSWEPs = tbl
+   end
+
+   return spawnableSmallSWEPs
 end
 
 local SpawnableAmmoClasses = nil
@@ -542,6 +559,8 @@ local function ImportEntities(map)
 
    local fname = "maps/" .. map .. "_ttt.txt"
 
+   local collectedRares = {}
+
    local num = 0
    for k, line in ipairs(string.Explode("\n", file.Read(fname, "GAME"))) do
       if (not string.match(line, "^#")) and (not string.match(line, "^setting")) and line != "" and string.byte(line) != 0 then
@@ -575,6 +594,15 @@ local function ImportEntities(map)
             -- Some dummy ents remap to different, real entity names
             cls = classremap[cls] or cls
 
+            if cls == "ttt_random_rare" then
+                local tbl = {
+                    pos = pos,
+                    ang = ang,
+                    kv = kv
+                }
+                table.insert(collectedRares, tbl)
+                continue
+            end
             fail = not CreateImportedEnt(cls, pos, ang, kv)
          end
 
@@ -584,6 +612,10 @@ local function ImportEntities(map)
             num = num + 1
          end
       end
+   end
+
+   if #collectedRares > 0 then
+
    end
 
    MsgN("Spawned " .. num .. " entities found in script.")

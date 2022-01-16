@@ -10,3 +10,6 @@
 [submodule "addons/ulib"]
 	path = addons/ulib
 	url = git@github.com:TeamUlysses/ulib.git
+[submodule "addons/tropical-weapon-placer"]
+	path = addons/tropical-weapon-placer
+	url = https://github.com/kklluuttzz/tropical-weapon-placer.git
