@@ -2,7 +2,7 @@ GM.tRareSpawnTable = {}
 
 function GM:RegisterRare(sClassName, iWeight)
     local tEntry = {
-        sClassName = sClassName
+        sClassName = sClassName,
         iWeight = iWeight
     }
     table.insert(self.tRareSpawnTable, tEntry)

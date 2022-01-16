@@ -266,7 +266,7 @@ function ents.TTT.GetSpawnableSmallSWEPs()
     if not SpawnableSWEPs then
         local tbl = {}
         for k,v in pairs(weapons.GetList()) do
-            if v and v.AutoSpawnable and SWEP.Kind == WEAPON_PISTOL not WEPS.IsEquipment(v)) then
+            if v and v.AutoSpawnable and SWEP.Kind == WEAPON_PISTOL and not WEPS.IsEquipment(v) then
                 table.insert(tbl, v)
             end
         end
@@ -554,6 +554,40 @@ local classremap = {
     ttt_playerspawn = "info_player_deathmatch"
 };
 
+local function generateRares(tCollectedRares)
+    local iSpawned = 0
+
+    local iMaxRares = GetConVar("ttt_rareitem_spawns"):GetInt()
+
+    local tSelectedRares = {}
+
+    if iMaxRares > #tCollectedRares then
+        for i=1, #tCollectedRares do
+            table.insert(tSelectedIndexes, tCollectedRares[i])
+        end
+    else
+        -- as many times as we have rares to pick...
+        for i=1, iMaxRares do
+            -- choose a random thing we haven't picked yet
+            local iChoice = math.random(i, #tCollectedRares)
+            table.insert(tSelectedRares, tCollectedRares[iChoice])
+
+            -- move the chosen thing to the part of the table we can't pick again
+            local temp = tCollectedRares[iChoice]
+            tCollectedRares[iChoice] = tCollectedRares[i]
+            tCollectedRares[i] = temp
+        end
+    end
+
+    for _, v in ipairs(tSelectedRares) do
+        local cls = GAMEMODE:PickRare()
+        iSpawned = iSpawned + 1
+        CreateImportedEnt(cls, v.pos, v.ang, v.kv)
+    end
+
+    return iSpawned
+end
+
 local function ImportEntities(map)
     if not ents.TTT.CanImportEntities(map) then return end
 
@@ -565,7 +599,6 @@ local function ImportEntities(map)
     for k, line in ipairs(string.Explode("\n", file.Read(fname, "GAME"))) do
         if (not string.match(line, "^#")) and (not string.match(line, "^setting")) and line != "" and string.byte(line) != 0 then
             local data = string.Explode("\t", line)
-
             local fail = true -- pessimism
 
             if data[2] and data[3] then
@@ -621,40 +654,6 @@ local function ImportEntities(map)
     MsgN("Spawned " .. num .. " entities found in script.")
 
     return true
-end
-
-local function generateRares(tCollectedRares)
-    local iSpawned = 0
-
-    local iMaxRares = GetConVar("ttt_rareitem_spawns"):GetInt()
-
-    local tSelectedRares = {}
-
-    if iMaxRares > #tCollectedRares then
-        for i=1, #tCollectedRares do
-            table.insert(tSelectedIndexes, i)
-        end
-    else
-        -- as many times as we have rares to pick...
-        for i=1, iMaxRares do
-            -- choose a random thing we haven't picked yet
-            local iChoice = math.random(i, #tCollectedRares)
-            table.insert(tSelectedRares, tCollectedRares[iChoice])
-
-            -- move the chosen thing to the part of the table we can't pick again
-            local temp = tCollectedRares[iChoice]
-            tCollectedRares[iChoice] = tCollectedRares[i]
-            tCollectedRares[i] = temp
-        end
-    end
-
-    for _, v in ipairs(tSelectedRares) do
-        local cls = GAMEMODE:PickRare()
-        iSpawned = iSpawned + 1
-        CreateImportedEnt(cls, v.pos, v.ang, v.kv)
-    end
-
-    return iSpawned
 end
 
 

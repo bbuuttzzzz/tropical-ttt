@@ -120,7 +120,7 @@ CreateConVar("ttt_voice_drain_recharge", "0.05", FCVAR_NOTIFY)
 CreateConVar("ttt_namechange_kick", "1", FCVAR_NOTIFY)
 CreateConVar("ttt_namechange_bantime", "10")
 
-CreateConVar("ttt_rareitem_spawns", "4")
+CreateConVar("ttt_rareitem_spawns", "2")
 
 local ttt_detective = CreateConVar("ttt_sherlock_mode", "1", FCVAR_ARCHIVE + FCVAR_NOTIFY)
 local ttt_minply = CreateConVar("ttt_minimum_players", "2", FCVAR_ARCHIVE + FCVAR_NOTIFY)
