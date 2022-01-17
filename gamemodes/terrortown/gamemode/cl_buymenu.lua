@@ -272,5 +272,8 @@ function BUYMENU.CreateMenu(dsheet, ply, closeEquipMenu)
       closeEquipMenu()
    end
 
+   can_order = update_preqs(dlist.SelectedPanel.item)
+   dconfirm:SetDisabled(not can_order)
+
    return dequip
 end
