@@ -106,6 +106,14 @@ function plymeta:HasEquipment()
    return self:HasEquipmentItem() or self:HasEquipmentWeapon()
 end
 
+function plymeta:HasInnocentMenu()
+    return self:HasRadio()
+end
+
+function plymeta:HasRadio()
+    return IsValid(self.radio) or self:HasWeapon("weapon_ttt_radio")
+end
+
 -- Override GetEyeTrace for an optional trace mask param. Technically traces
 -- like GetEyeTraceNoCursor but who wants to type that all the time, and we
 -- never use cursor tracing anyway.
@@ -114,7 +122,7 @@ function plymeta:GetEyeTrace(mask)
 
    if CLIENT then
       local framenum = FrameNumber()
-      
+
       if self.LastPlayerTrace == framenum and self.LastPlayerTraceMask == mask then
          return self.PlayerTrace
       end

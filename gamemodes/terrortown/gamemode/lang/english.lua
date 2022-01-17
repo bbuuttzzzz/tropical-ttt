@@ -423,6 +423,7 @@ close proximity.]]
 -- Radio
 L.radio_broken    = "Your Radio has been destroyed!"
 L.radio_help_pri  = "{primaryfire} places the Radio."
+L.radio_remote_help_pri  = "{primaryfire} opens the menu."
 
 L.radio_desc      = [[
 Plays sounds to distract or deceive.
