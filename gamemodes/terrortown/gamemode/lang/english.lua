@@ -138,7 +138,11 @@ L.radio_button_huge    = "H.U.G.E burst"
 L.radio_button_c4      = "C4 beeping"
 L.radio_button_burn    = "Burning"
 L.radio_button_steps   = "Footsteps"
+L.radio_button_url     = "Play from URL..."
 
+L.radio_url_popup_title= "Play from Url..."
+L.radio_urlpop_cancel  = "Cancel"
+L.radio_urlpop_accept  = "Play"
 
 -- Intro screen shown after joining
 L.intro_help     = "If you're new to the game, press F1 for instructions!"

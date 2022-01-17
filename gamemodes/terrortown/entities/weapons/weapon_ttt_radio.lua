@@ -42,12 +42,7 @@ SWEP.CanBuy                 = {ROLE_TRAITOR} -- only traitors can buy
 SWEP.LimitedStock           = true -- only buyable once
 SWEP.WeaponID               = AMMO_RADIO
 
-SWEP.AllowDrop              = false
 SWEP.NoSights               = true
-
-function SWEP:OnDrop()
-   self:Remove()
-end
 
 function SWEP:PrimaryAttack()
    self:SetNextPrimaryFire( CurTime() + self.Primary.Delay )
@@ -71,7 +66,7 @@ function SWEP:RadioDrop()
       local vsrc = ply:GetShootPos()
       local vang = ply:GetAimVector()
       local vvel = ply:GetVelocity()
-      
+
       local vthrow = vvel + vang * 200
 
       local radio = ents.Create("ttt_radio")
@@ -84,7 +79,7 @@ function SWEP:RadioDrop()
          local phys = radio:GetPhysicsObject()
          if IsValid(phys) then
             phys:SetVelocity(vthrow)
-         end   
+         end
          self:Remove()
 
          self.Planted = true
@@ -166,9 +161,6 @@ function SWEP:Deploy()
       self:GetOwner():DrawViewModel(false)
    end
    return true
-end
-
-function SWEP:DrawWorldModel()
 end
 
 function SWEP:DrawWorldModelTranslucent()

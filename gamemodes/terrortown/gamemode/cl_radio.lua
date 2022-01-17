@@ -23,10 +23,10 @@ local smatrix = {
    {"m16", "rifle", "huge", "beeps"}
 };
 
-local function PlayRadioSound(snd)
+local function PlayRadioSound(snd, url)
    local r = LocalPlayer().radio
    if IsValid(r) then
-      RunConsoleCommand("ttt_radio_play", tostring(r:EntIndex()), snd)
+      RunConsoleCommand("ttt_radio_play", tostring(r:EntIndex()), snd, url)
    end
 end
 
@@ -66,6 +66,61 @@ local function CreateSoundBoard(parent)
    return b
 end
 
+local function SpawnURLPlayPopup()
+
+      local w, h = 300, 100
+
+      local dframe = vgui.Create("DFrame")
+      dframe:SetSize(w, h)
+      dframe:Center()
+      dframe:SetTitle(LANG.GetTranslation("radio_url_popup_title"))
+      dframe:SetVisible(true)
+      dframe:SetMouseInputEnabled(true)
+
+      local textEntry = vgui.Create("DTextEntry", dframe)
+      textEntry:StretchToParent(5, 25, 5, 45)
+      textEntry:SetPlaceholderText("https://example.com/file.mp3")
+      textEntry.OnEnter = function(self)
+         PlayRadioSound("url", self:GetValue())
+         dframe:Close()
+      end
+
+      local bw, bh = 75, 25
+      local cancel = vgui.Create("DButton", dframe)
+      cancel:SetPos(10, h - 40)
+      cancel:SetSize(bw, bh)
+      cancel:SetText(LANG.GetTranslation("radio_urlpop_cancel"))
+      cancel.DoClick = function() dframe:Close() end
+
+      local playButton = vgui.Create("DButton", dframe)
+      playButton:SetPos(w - 185, h - 40)
+      playButton:SetSize(175, bh)
+      playButton:SetText(LANG.GetTranslation("radio_urlpop_accept"))
+      playButton.DoClick = function()
+         PlayRadioSound("url", textEntry:GetValue())
+         dframe:Close()
+      end
+
+      dframe:MakePopup()
+end
+
+local function CreateURLPlayButton(parent, board)
+   local b = vgui.Create("DPanel", parent)
+
+   local width, boardHeight = board:GetSize()
+   local boardX, _ = board:GetPos()
+   local height = 30
+   local m = 5
+
+   b:SetSize(width, height)
+   b:SetPos(boardX, 25 + boardHeight + m)
+
+   local button = vgui.Create("DButton", b)
+   button:StretchToParent(0,0,0,0)
+   button:SetText(LANG.GetTranslation("radio_button_url"))
+   button.DoClick = function() SpawnURLPlayPopup() end
+end
+
 function TRADIO.CreateMenu(parent)
    local w, h = parent:GetSize()
 
@@ -83,6 +138,7 @@ function TRADIO.CreateMenu(parent)
    if IsValid(client.radio) then
 
       local board = CreateSoundBoard(wrap)
+      local urlplaybutton = CreateURLPlayButton(wrap, board)
 
    elseif client:HasWeapon("weapon_ttt_radio") then
       dhelp:SetText(LANG.GetTranslation("radio_notplaced"))
@@ -94,4 +150,3 @@ function TRADIO.CreateMenu(parent)
 
    return wrap
 end
-

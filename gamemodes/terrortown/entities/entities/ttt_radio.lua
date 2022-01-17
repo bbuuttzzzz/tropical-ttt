@@ -6,6 +6,47 @@ if CLIENT then
    -- this entity can be DNA-sampled so we need some display info
    ENT.Icon = "vgui/ttt/icon_radio"
    ENT.PrintName = "radio_name"
+
+   local function ReceiveRadioUrl(len)
+      local self = net.ReadEntity()
+      local url = net.ReadString()
+
+      self:PlayFromUrl(url)
+   end
+   net.Receive( "TTT_PlayRadioUrl", ReceiveRadioUrl )
+
+   function ENT:PlayFromUrl(url)
+      //permissions.register("PLAY_URL_SOUNDS")
+
+      sound.PlayURL(url, "3d", function(audioChannel, b, playError)
+         if playError == BASS_ERROR_NO3D then
+            sound.PlayURL(url, "", function(audioChannel2, b2, playError2)
+               if playError2 then
+                  local ply = LocalPlayer()
+                  if (ply == self:GetOwner()) then
+                     ply:ChatPrint("Failed to play url " .. url .. ": " .. playError2)
+                  end
+               else
+                  self.UrlSound = audioChannel
+                  audioChannel:SetPos(self:GetPos())
+                  audioChannel:SetVolume(1)
+                  audioChannel:Play()
+               end
+            end)
+         elseif (playError) then
+            local ply = LocalPlayer()
+            if (ply == self:GetOwner()) then
+               ply:ChatPrint("Failed to play url " .. url .. ": " .. playError)
+            end
+            return
+         else
+            self.UrlSound = audioChannel
+            audioChannel:SetPos(self:GetPos())
+            audioChannel:SetVolume(3)
+            audioChannel:Play()
+         end
+      end)
+   end
 end
 
 ENT.Type = "anim"
@@ -45,7 +86,7 @@ function ENT:Initialize()
 end
 
 function ENT:UseOverride(activator)
-   if IsValid(activator) and activator:IsPlayer() and activator:IsActiveTraitor() then
+   if IsValid(activator) and activator:IsPlayer() and activator == self:GetOwner() then
       local prints = self.fingerprints or {}
       self:Remove()
 
@@ -78,6 +119,10 @@ end
 
 function ENT:OnRemove()
    if CLIENT then
+      if self.UrlSound then
+         self.UrlSound:Stop()
+      end
+
       if LocalPlayer() == self:GetOwner() then
          LocalPlayer().radio = nil
       end
@@ -254,9 +299,15 @@ function ENT:Think()
       -- always do this, makes timing work out a little better
       nextplay = CurTime() + self.SoundDelay
    end
+
+   if self.UrlSound then
+      self.UrlSound:SetPos(self:GetPos())
+   end
 end
 
 if SERVER then
+
+   util.AddNetworkString("TTT_PlayRadioUrl")
 
    local soundtypes = {
       "scream", "shotgun", "explosion",
@@ -265,10 +316,16 @@ if SERVER then
       "burning", "beeps", "footsteps"
    };
 
+   function ENT:BroadcastPlayUrl(url)
+      net.Start( "TTT_PlayRadioUrl" )
+         net.WriteEntity(self)
+         net.WriteString(url)
+      net.Broadcast()
+   end
 
    local function RadioCmd(ply, cmd, args)
-      if not IsValid(ply) or not ply:IsActiveTraitor() then return end
-      if not (#args == 2) then return end
+      if not IsValid(ply) then return end
+      if #args < 2 then return end
 
       local eidx = tonumber(args[1])
       local snd = tostring(args[2])
@@ -279,7 +336,12 @@ if SERVER then
       if not (radio:GetOwner() == ply) then return end
       if not (radio:GetClass() == "ttt_radio") then return end
 
-      if not table.HasValue(soundtypes, snd) then
+      if snd == "url" then
+         if #args < 3 then return end
+         local url = tostring(args[3])
+         print("playing URL " .. url)
+         radio:BroadcastPlayUrl(url)
+      elseif not table.HasValue(soundtypes, snd) then
          print("Received radio sound not in table from", ply)
          return
       end
@@ -288,5 +350,3 @@ if SERVER then
    end
    concommand.Add("ttt_radio_play", RadioCmd)
 end
-
-

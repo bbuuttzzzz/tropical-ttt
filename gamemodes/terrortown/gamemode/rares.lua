@@ -10,7 +10,8 @@ end
 
 GM:RegisterRare("weapon_ttt_knife", 1)
 GM:RegisterRare("weapon_ttt_wtester", 1)
-GM:RegisterRare("weapon_zm_awp", 1)
+GM:RegisterRare("weapon_zm_awp", 2)
+GM:RegisterRare("weapon_ttt_radio", 2)
 
 function GM:PickRare()
     local iTotalWeight = 0

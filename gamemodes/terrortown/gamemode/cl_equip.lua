@@ -86,10 +86,8 @@ local eqframe = nil
 local function TraitorMenuPopup()
    local ply = LocalPlayer()
    if not IsValid(ply) or (not ply:IsActiveSpecial() and not ply:HasInnocentMenu()) then
-      print("no D:")
       return
    end
-   print("yes!! :D")
 
    local w, h = 570, 412
    local m = 5
