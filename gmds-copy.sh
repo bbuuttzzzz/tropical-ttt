@@ -6,7 +6,7 @@ NC='\033[0m' # No Color
 #define the function display_help
 display_usage () {
     echo "Usage: gmds-link.sh [OPTION]... <PATH>"
-    echo "Create symbolic links to attach this project to the Gmod Dedicated Server instance at PATH"
+    echo "attach this project to the Gmod Dedicated Server instance at PATH by copy-pasting the files"
     echo -e "  -H, --hard\t\t\tdelete and recopy everything (will remove renamed/deleted files)"
     echo -e "  -R, --revert\t\t\tdelete everything. Don't copy"
     echo -e "  -f, --force\t\t\tdon't ask me if im sure I want to remove this directory"

@@ -3,13 +3,13 @@
 	url = https://github.com/kklluuttzz/tropical-core
 [submodule "addons/ulx-tropical"]
 	path = addons/ulx-tropical
-	url = git@github.com:kklluuttzz/ulx-tropical.git
+	url = https://github.com/kklluuttzz/ulx-tropical.git
 [submodule "addons/ulx"]
 	path = addons/ulx
-	url = git@github.com:TeamUlysses/ulx.git
+	url = https://github.com/TeamUlysses/ulx.git
 [submodule "addons/ulib"]
 	path = addons/ulib
-	url = git@github.com:TeamUlysses/ulib.git
+	url = https://github.com/TeamUlysses/ulib.git
 [submodule "addons/tropical-weapon-placer"]
 	path = addons/tropical-weapon-placer
 	url = https://github.com/kklluuttzz/tropical-weapon-placer.git
