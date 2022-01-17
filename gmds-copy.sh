@@ -7,7 +7,7 @@ NC='\033[0m' # No Color
 display_usage () {
     echo "Usage: gmds-link.sh [OPTION]... <PATH>"
     echo "Create symbolic links to attach this project to the Gmod Dedicated Server instance at PATH"
-    echo -e "  -h, --hard\t\t\tdelete and recopy everything (will remove renamed/deleted files)"
+    echo -e "  -H, --hard\t\t\tdelete and recopy everything (will remove renamed/deleted files)"
     echo -e "  -R, --revert\t\t\tdelete everything. Don't copy"
     echo -e "  -f, --force\t\t\tdon't ask me if im sure I want to remove this directory"
 }
@@ -17,7 +17,7 @@ POSITIONAL_ARGS=()
 
 while [[ $# -gt 0 ]]; do
     case $1 in
-        -h|--hard)
+        -H|--hard)
             HARD=0
             shift # past argument
             ;;
