@@ -56,5 +56,6 @@ COPY addons /steam/gmod/garrysmod/addons
 COPY gamemodes /steam/gmod/garrysmod/gamemodes
 COPY data /steam/gmod/garrysmod/data
 COPY server.cfg /steam/gmod/garrysmod/cfg/server.cfg
+COPY mount.cfg /steam/gmod/garrysmod/fcg/server.cfg
 
 CMD ["-dev", "+gamemode", "terrortown", "-maxplayers", "12", "+map", "ttt_biocube", "+rcon", "nohacko", "+host_workshop_collection", "2258099756", "sv_setsteamaccount", "0F71CE9C4029E3698FAD3994C7CC6985"]
